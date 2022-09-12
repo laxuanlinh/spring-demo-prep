@@ -5,8 +5,6 @@ import com.example.demo.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.el.PropertyNotFoundException;
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -16,7 +14,7 @@ public class BookService {
     private BookRepository bookRepository;
 
     public Book getBookByTitle(String title){
-        throw new PropertyNotFoundException("sum ting wong");
+        return bookRepository.findByTitle(title);
     }
 
     public List<Book> getBookByAuthor(String name){
