@@ -25,9 +25,10 @@ public class BookController {
         return new ResponseEntity<>(bookService.getBookByTitle(title), HttpStatus.OK);
     }
 
-//    @PutMapping(value = "/api/books")
-//    public ResponseEntity<Book> updateBook(@RequestBody Book book){
-//
-//    }
+    @GetMapping(value = "/api/admin/deletebook")
+    public ResponseEntity<Book> updateBook(){
+        System.out.println("yay deleted");
+        return new ResponseEntity<>(new Book(), HttpStatus.OK);
+    }
 
 }
