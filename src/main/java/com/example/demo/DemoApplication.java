@@ -32,17 +32,17 @@ public class DemoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Author author1 = new Author();
-		author1.setName("author1");
-		Author author2 = new Author();
-		author2.setName("this is author 2");
+		var author1 = new Author();
+		author1.setName("Harper Lee");
+		var author2 = new Author();
+		author2.setName("George Orwell");
 		authorRepository.save(author1);
 		authorRepository.save(author2);
-		Stream.of("Book 1", "Book about programming", "Novel and stuff")
-				.map(n -> new Book(n, Arrays.asList(author1, author2)))
+		Stream.of("Mockingbird", "1984", "The Great Gatsby")
+				.map(n -> new Book(n, Arrays.asList(author1, author2), 1920, 19.99, "Novel"))
 				.forEach(b->bookRepository.save(b));
-		Account user = new Account("user", bCryptPasswordEncoder.encode("password"), "USER");
-		Account admin = new Account("admin", bCryptPasswordEncoder.encode("password"), "ADMIN");
+		var user = new Account("user", bCryptPasswordEncoder.encode("password"), "USER");
+		var admin = new Account("admin", bCryptPasswordEncoder.encode("password"), "ADMIN");
 		accountRepository.save(user);
 		accountRepository.save(admin);
 	}

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+//import javax.validation.Valid;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,10 +27,22 @@ public class BookController {
         return new ResponseEntity<>(bookService.getBookByTitle(title), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/api/admin/deletebook")
-    public ResponseEntity<Book> updateBook(){
-        System.out.println("yay deleted");
-        return new ResponseEntity<>(new Book(), HttpStatus.OK);
+    @PostMapping(value = "/api/books")
+    public ResponseEntity<Book> createBook(@Valid @RequestBody Book book){
+        return new ResponseEntity<>(bookService.createBook(book), HttpStatus.CREATED);
     }
+
+    @PutMapping(value = "/api/books")
+    public ResponseEntity<Book> updateBook(@Valid @RequestBody Book book){
+        return new ResponseEntity<>(bookService.updateBook(book), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/api/admin/deletebook/{id}")
+    public ResponseEntity deleteBook(@PathVariable Long id){
+        bookService.deleteBook(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 
 }

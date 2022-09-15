@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        var daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         daoAuthenticationProvider.setUserDetailsService(userDetailsService());
         return daoAuthenticationProvider;
@@ -43,9 +43,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/api").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/api/admin/*").hasRole("ADMIN")
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/api/admin/**").hasRole("ADMIN")
+                .antMatchers("/api/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
